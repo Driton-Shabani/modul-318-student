@@ -33,9 +33,23 @@
         [Fact]
         public void Connections()
         {
-            Connections connections = this.testee.GetConnections("Sursee", "Luzern");
+            Connections connections = this.testee.GetConnections("Sursee", "Luzern", System.DateTime.Now, System.DateTime.Now);
 
             connections.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void StationBoardGet()
+        {
+            Station station = new Station();
+
+            station.Name = "Fildern";
+            var s = this.testee.GetStations(station.Name);
+            string id = s.StationList[0].Id;
+
+            var stationBoardList = this.testee.GetStationBoard(station.Name, id);
+
+            id.Should().NotBeNull();
         }
     }
 }
